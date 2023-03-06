@@ -29,56 +29,20 @@ public class AccesoBBDD extends Conector{
 	
 	//Inserta Los usuarios
 	
-	public static void InsertarUsuarios(String Usuario) {
-		Usuario usuario = new Usuario();
-		usuario.setId(Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce la id del usuario")));
-		usuario.setNombre_apellido(JOptionPane.showInputDialog(null, "Introduce el nombre y apellido de el usuario"));
-		usuario.setDni(JOptionPane.showInputDialog(null, "Introduce el dni de el usuario"));
-		usuario.setCodigo(JOptionPane.showInputDialog(null, "Introduce el codigo del usario"));
+	public void registrarUsuarios(Usuario usuario){
 		
-		
-
 		try {
-			if (insertarUsuariosEnLaBBDD(usuario)) {
-				System.out.println("Usuario insertado");
-			} else {
-				System.out.println("Codigo duplicado");
-			}
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
-
-	}
-
-	private static boolean insertarUsuariosEnLaBBDD(Usuario usuario) {
-		try {
-			
-			//No funicona bien el conector 
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + BBDD, USERNAME, PASSWORD);
-
-			
 			con.conectar();
-			String sql = "INSERT INTO usuarios(id, nombre_apellido, dni, codigo) VALUES (?, ?, ?, ?)";
-			PreparedStatement pst = conexion.prepareStatement(sql);
-			pst.setInt(1, usuario.getId());
-			pst.setString(2, usuario.getNombre_apellido());
-			pst.setString(3, usuario.getDni());
-			pst.setString(4, usuario.getCodigo());
-			pst.execute();
-			return true;
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("Codigo duplicado");
-			e.printStackTrace();
-			return false;
+			ps = con.getCon().prepareStatement("INSERT INTO clientes (dni, nombre, apellidos, direccion, localidad) VALUES (?, ? , ?, ?, ?)");
+			ps.setInt(1, usuario.getId());
+			ps.setString(2, usuario.getNombre_apellido());
+			ps.setString(3, usuario.getDni());
+			ps.setString(4, usuario.getCodigo());
+			ps.execute();
 		} catch (SQLException e) {
-			System.out.println("Codigo duplicado");
 			e.printStackTrace();
-			return false;
 		}
-
+	
 	}
 	
 /*****************************************************************************************************************************************/
