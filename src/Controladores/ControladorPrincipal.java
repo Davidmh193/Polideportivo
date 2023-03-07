@@ -11,11 +11,10 @@ public class ControladorPrincipal implements ActionListener {
 	public ControladorPrincipal(Principal principal) {
 		this.principal = principal;
 
-		//asignar escuchadores de eventos a elementos (botones...)
-		principal.GestorInsertar.addActionListener(this);
-		principal.GestorEliminar.addActionListener(this);
-		principal.GestorModificar.addActionListener(this);
-		
+		//Asignar escuchadores de eventos a elementos (botones...)
+		principal.getGestorInsertar().addActionListener(this);
+		principal.getGestorEliminar().addActionListener(this);
+		principal.getGestorModificar().addActionListener(this);		
 		}
 
 	// Inicia o resetea la vista de la ventana
@@ -28,8 +27,14 @@ public class ControladorPrincipal implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("boton clicado");
-
+		if (e.getSource()== principal.getGestorInsertar()) {
+			System.out.println("Click Usuarios");
+		}else if (e.getSource() == principal.getGestorEliminar()) {
+			System.out.println("Click Actividades");
+		}else if(e.getSource()== principal.getGestorModificar()) {
+			System.out.println("Click Inscripciones");
+	}
+		
 	}
 
 }

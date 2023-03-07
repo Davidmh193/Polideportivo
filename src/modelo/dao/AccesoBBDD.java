@@ -23,17 +23,17 @@ public class AccesoBBDD extends Conector{
 	private static final String PASSWORD = "";
 	
 	static Conector con = new Conector();
-	PreparedStatement ps;
+	static PreparedStatement ps;
 	
 /**********************************************************************************************************************************************/
 	
 	//Inserta Los usuarios
 	
-	public void registrarUsuarios(Usuario usuario){
+	public static void registrarUsuarios(Usuario usuario){
 		
 		try {
 			con.conectar();
-			ps = con.getCon().prepareStatement("INSERT INTO clientes (dni, nombre, apellidos, direccion, localidad) VALUES (?, ? , ?, ?, ?)");
+			ps = con.getCon().prepareStatement("INSERT INTO usuarios (id, nombre_apellido, dni, codigo) VALUES (?, ? , ?, ?)");
 			ps.setInt(1, usuario.getId());
 			ps.setString(2, usuario.getNombre_apellido());
 			ps.setString(3, usuario.getDni());
@@ -102,38 +102,17 @@ public class AccesoBBDD extends Conector{
 /*****************************************************************************************************************************************/
 
 	
-	public static void eliminarUsuarios() {
-		String codigo = JOptionPane.showInputDialog(null, "Inserte codigo de usuario");
-
-		Usuario eliminar = new Usuario();
-		eliminar.setCodigo(codigo);
-		if (eliminarUsuariosDelaBBDD(codigo)) {
-			System.out.println("Borrada la inscripcion");
-		} else {
-			System.out.println("Error en la eliminacion");
-		}
-	}
-
-	private static boolean eliminarUsuariosDelaBBDD(String codigo) {
+	public void EliminarUsuario(String id){
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + BBDD, USERNAME, PASSWORD);
-
-			String sql = "DELETE FROM usuarios WHERE codigo = ?";
-			PreparedStatement pst = conexion.prepareStatement(sql);
-			pst.setString(1, codigo);
-			pst.execute();
-			return true;
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("Driver no cargado, falta el jar");
-			e.printStackTrace();
-			return false;
+			con.conectar();
+			ps = con.getCon().prepareStatement("DELETE FROM Usuarios WHERE id = ?");
+			ps.setString(1,id);
+			ps.execute();
 		} catch (SQLException e) {
-			System.out.println("Fallo en la conexion");
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
 		}
+	
 	}
 
 
