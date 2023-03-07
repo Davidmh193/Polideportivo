@@ -17,6 +17,9 @@ import javax.swing.border.EmptyBorder;
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
+	public JButton GestorInsertar;
+	public JButton GestorEliminar;
+	public JButton GestorModificar;
 
 	/**
 	 * Launch the application.
@@ -50,17 +53,20 @@ public class Principal extends JFrame {
 
 		setContentPane(contentPane);
 		
-		JButton GestorInsertar = new JButton("Gestor Insertar");
+		GestorInsertar = new JButton("Gestor Insertar");
 		GestorInsertar.setBounds(187, 98, 151, 23);
 		GestorInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Insertar los Datos
+				
+				
 				
 			}
 		});
 		contentPane.setLayout(null);
 		contentPane.add(GestorInsertar);
 		
-		JButton GestorModificar = new JButton("Gestor Modificar");
+		 GestorModificar = new JButton("Gestor Modificar");
 		GestorModificar.setBounds(187, 190, 151, 23);
 		GestorModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -69,7 +75,7 @@ public class Principal extends JFrame {
 		});
 		contentPane.add(GestorModificar);
 		
-		JButton GestorEliminar = new JButton("Gestor eliminar");
+		GestorEliminar = new JButton("Gestor eliminar");
 		GestorEliminar.setBounds(187, 142, 151, 23);
 		GestorEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
