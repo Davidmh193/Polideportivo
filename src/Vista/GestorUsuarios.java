@@ -23,6 +23,10 @@ public class GestorUsuarios extends JFrame {
 	private JTextField NombreApellido_Insertar;
 	private JTextField DniInsertar;
 	private JTextField CodigoInsertar;
+	private JTextField ModificarId;
+	private JTextField ModificarNombreApellido;
+	private JTextField ModificarDni;
+	private JTextField ModificarCodigo;
 
 	public GestorUsuarios() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,9 +109,82 @@ public class GestorUsuarios extends JFrame {
 		});
 		Insertar.setBounds(162, 176, 89, 23);
 		panel.add(Insertar);
+		
+		JButton btnNewButton = new JButton("Salir");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			//Cierra la pestaña	
+				dispose();
+			
+			}
+		});
+		btnNewButton.setBounds(354, 199, 65, 23);
+		panel.add(btnNewButton);
 
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("New tab", null, panel_1, null);
 		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("MODIFICAR USUARIOS");
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblNewLabel_1_1.setBounds(0, 11, 429, 31);
+		panel_1.add(lblNewLabel_1_1);
+		
+		JLabel Id_1 = new JLabel("ID");
+		Id_1.setBounds(10, 60, 65, 20);
+		panel_1.add(Id_1);
+		
+		JLabel NombreApellido_1 = new JLabel("Nombre_Apellido");
+		NombreApellido_1.setBounds(10, 96, 85, 14);
+		panel_1.add(NombreApellido_1);
+		
+		JLabel Dni_1 = new JLabel("Dni\r\n");
+		Dni_1.setBounds(10, 132, 46, 14);
+		panel_1.add(Dni_1);
+		
+		JLabel lblNewLabel_2_2_1 = new JLabel("Codigo");
+		lblNewLabel_2_2_1.setBounds(10, 170, 46, 14);
+		panel_1.add(lblNewLabel_2_2_1);
+		
+		ModificarId = new JTextField();
+		ModificarId.setBounds(125, 60, 187, 20);
+		panel_1.add(ModificarId);
+		ModificarId.setColumns(10);
+		
+		ModificarNombreApellido = new JTextField();
+		ModificarNombreApellido.setColumns(10);
+		ModificarNombreApellido.setBounds(125, 93, 187, 20);
+		panel_1.add(ModificarNombreApellido);
+		
+		ModificarDni = new JTextField();
+		ModificarDni.setColumns(10);
+		ModificarDni.setBounds(125, 129, 187, 20);
+		panel_1.add(ModificarDni);
+		
+		ModificarCodigo = new JTextField();
+		ModificarCodigo.setColumns(10);
+		ModificarCodigo.setBounds(125, 167, 187, 20);
+		panel_1.add(ModificarCodigo);
+		
+		JButton GuardarModificaciones = new JButton("Modificar");
+		GuardarModificaciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		GuardarModificaciones.setBounds(180, 201, 89, 23);
+		panel_1.add(GuardarModificaciones);
+		
+		JButton btnNewButton_1 = new JButton("Salir");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(354, 201, 65, 23);
+		panel_1.add(btnNewButton_1);
 	}
 }
+
