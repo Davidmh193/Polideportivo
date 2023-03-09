@@ -1,27 +1,13 @@
 package modelo.dao;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 import modelo.Conector;
-import modelo.bean.Actividad;
 import modelo.bean.Usuario;
 
 public class AccesoBBDD extends Conector{
-	
-	
-	//No funicona bien el conector, por eso lo tengo asi 
-	
-	private static final String HOST = "localhost";
-	private static final String BBDD = "polideportivo";
-	private static final String USERNAME = "root";
-	private static final String PASSWORD = "";
-	
+
 	static Conector con = new Conector();
 	static PreparedStatement ps;
 	
@@ -46,67 +32,42 @@ public class AccesoBBDD extends Conector{
 	}
 	
 /*****************************************************************************************************************************************/
-
 	
-	public static void modificarDatosActividad() {
-		Actividad actividad = new Actividad();
-		
-		actividad.setId(Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce la id de la actividad")));
-		actividad.setNombre(JOptionPane.showInputDialog(null, "Introduce el Nombre de la actividad"));
-		actividad.setFecha_inicio(java.sql.Date.valueOf(JOptionPane.showInputDialog(null, "Introduce la fecha de inicio")));
-		actividad.setDias_semana(JOptionPane.showInputDialog(null, "Introduce los dias a modificar"));
-		actividad.setHoras(Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce el numero de horas")));
-		actividad.setMax_participantes(Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce los participantes maximos")));
-		actividad.setPrecio(Double.parseDouble(JOptionPane.showInputDialog(null, "Introduce el precio")));
-		
-		
-		if (modificarActividadEnLaBBDD(actividad)) {
-			System.out.println("Actividad modificada");
-		} else {
-			System.out.println("Error al modificar");
-		}
-
+	public static void modificarCliente(int id, String modificar, String nuevoValor) throws ClassNotFoundException, SQLException {
+		con.conectar();
+		ps = con.getCon().prepareStatement("UPDATE usuarios SET "+modificar+" = ? WHERE `usuarios`.`id` = ?");
+		ps.setString(1, nuevoValor);
+		ps.setInt(2, id);
+		ps.execute();
 	}
+	
+	public static void modificarClienteJframe(int id, Usuario usuario) throws ClassNotFoundException {
 
-	private static boolean modificarActividadEnLaBBDD(Actividad actividad) {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + BBDD, USERNAME, PASSWORD);
+        try {
+            con.conectar();
+           ps = con.getCon().prepareStatement("UPDATE usuarios SET nombre_apellido= ?, dni= ?, codigo= ? WHERE id = ?");
+            ps.setString(1, usuario.getNombre_apellido());
+            ps.setString(2, usuario.getDni());
+            ps.setString(3, usuario.getCodigo());
+            ps.setInt(4, id);
 
-			String sql = "UPDATE actividades SET nombre=?, fecha_inicio=?, dias_semana=?, horas=?, max_participantes=?, precio=? WHERE id=?";
-			PreparedStatement pst = conexion.prepareStatement(sql);
+            ps.execute();
 
-			pst.setString(1, actividad.getNombre());
-			pst.setDate(2, (Date) actividad.getFecha_inicio());
-			pst.setString(3, actividad.getDias_semana());
-			pst.setInt(4, actividad.getHoras());
-			pst.setInt(5, actividad.getMax_participantes());
-			pst.setDouble(6, actividad.getPrecio());
-			pst.setInt(7, actividad.getId());
-			pst.execute();
-			return true;
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("Driver no cargado, falta el jar");
-			e.printStackTrace();
-			return false;
-		} catch (SQLException e) {
-			System.out.println("Fallo en la conexion");
-			e.printStackTrace();
-			return false;
-		}
-	}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	
 
 /*****************************************************************************************************************************************/
 
 	
-	public void EliminarUsuario(String id){
+	public void bajaUsuario(int id) throws ClassNotFoundException{
 		try {
 			con.conectar();
-			ps = con.getCon().prepareStatement("DELETE FROM Usuarios WHERE id = ?");
-			ps.setString(1,id);
+			ps = con.getCon().prepareStatement("DELETE FROM usuarios WHERE `usuarios`.`id` = ?");
+			ps.setInt(1, id);
 			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -114,6 +75,5 @@ public class AccesoBBDD extends Conector{
 		}
 	
 	}
-
 
 }
